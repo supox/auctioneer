@@ -1,6 +1,6 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
 
-user:
+one:
   name: Ilan Ben Hagai
   email: ilan@gmail.com
   phone: 052-8741422

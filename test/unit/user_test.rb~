@@ -6,7 +6,7 @@ class UserTest < ActiveSupport::TestCase
 	end
 
 	test "should response" do
-		methods =[:email, :name, :phone, :password, :password_confirmation, :password_digest]
+		methods =[:email, :name, :phone, :password, :password_confirmation, :password_digest, :bids]
 		methods.each do |meth|
 			assert_respond_to @user, meth
 		end
@@ -51,7 +51,7 @@ class UserTest < ActiveSupport::TestCase
 			assert(@user.valid?, "Name \"#{name}\" should be valid")
 		end
 
-		invalid_names = ["a", "a"*51, nil, ""]
+		invalid_names = ["a", "a"*51, nil, "", "          "]
 		invalid_names.each do |name|
 			@user.name = name
 			assert (!@user.valid?), "Name \"#{name}\" should be invalid"

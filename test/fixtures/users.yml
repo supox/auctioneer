@@ -5,10 +5,12 @@ one:
   email: ilan@gmail.com
   phone: 052-8741422
   password_digest: DIGGG
+  id: 1
 
 two:
   name: Roi something
   email: roi@gmail.com
   phone: 054-2342422
   password_digest: DIGGG2
+  id: 2
 

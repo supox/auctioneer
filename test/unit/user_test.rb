@@ -37,7 +37,7 @@ class UserTest < ActiveSupport::TestCase
 			assert @user.valid?
 		end
 
-		invalid_phones = ["a", "052", "0528741422a", "254"*10, nil, ""]
+		invalid_phones = ["a", "052", "0528741422a", "254"*10, nil, "", "          "]
 		invalid_phones.each do |phone|
 			@user.phone = phone
 			assert (!@user.valid?)
@@ -51,7 +51,7 @@ class UserTest < ActiveSupport::TestCase
 			assert(@user.valid?, "Name \"#{name}\" should be valid")
 		end
 
-		invalid_names = ["a", "a"*51, nil, ""]
+		invalid_names = ["a", "a"*51, nil, "", "          "]
 		invalid_names.each do |name|
 			@user.name = name
 			assert (!@user.valid?), "Name \"#{name}\" should be invalid"

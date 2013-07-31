@@ -38,4 +38,17 @@ class BidTest < ActiveSupport::TestCase
 		assert_equal d, b2.offer_date
 		assert_equal true, b2.withraw
 	end
+	
+	test "it should have user and auction" do
+		@bid.user_id = nil
+		refute @bid.valid?
+		@bid.user_id = @user.id
+		assert @bid.valid?
+
+		@bid.auction_id = nil
+		refute @bid.valid?
+		@bid.auction_id = @auction.id
+		assert @bid.valid?		
+	end
+	
 end

@@ -9,13 +9,13 @@ class Auction < ActiveRecord::Base
 	validates_uniqueness_of :item_id
 	validate :times_validation
 	
-	def bid(b)
+	def bid(params)
 		raise 'Auction Closed' unless open?
-		self.bids << b
+		self.bids.build(params)
 	end
 	
 	def winning_bid
-		self.bids.last(:order => "value", :conditions => { :withraw => false })
+		self.bids.where(["withraw = ?", false]).order(:value).last
 	end
 	
 	def open?
