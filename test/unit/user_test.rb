@@ -6,7 +6,8 @@ class UserTest < ActiveSupport::TestCase
 	end
 
 	test "should response" do
-		methods =[:email, :name, :phone, :password, :password_confirmation, :password_digest, :bids]
+		methods =[:email, :name, :phone, :password, :password_confirmation, :password_digest, 
+		:bids, :remember_token]
 		methods.each do |meth|
 			assert_respond_to @user, meth
 		end
@@ -16,6 +17,28 @@ class UserTest < ActiveSupport::TestCase
 		assert @user.valid?
 	end
 
+	test "remember_token" do
+		@user.save!
+		refute @user.remember_token.nil?, "Remember token doesnt exists."
+		assert @user.remember_token.length > 4
+	end
+	
+	test "check reset password send mail" do
+		@user.create_reset_code
+		mail = ActionMailer::Base.deliveries.last
+		assert_equal @user.email, mail.to.first
+		assert_match(@user.reset_password_token, mail.body.encoded)
+	end
+
+	test "check got reset password" do
+		@user.create_reset_code
+		
+		refute @user.reset_password "wrong key", "password", "password"
+		refute @user.reset_password_token.nil?
+		assert @user.reset_password @user.reset_password_token, "password", "password"
+		assert @user.reset_password_token.nil?
+	end
+	
 	test "invalid email" do
 		mails = ["a@gm.com", "ila@walla.co.il", "ilan.ben.hagai@gmail.com", "f33121.fdf@wa.wa.wa.co.il"]
 		mails.each do |mail|
