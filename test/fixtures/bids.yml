@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  offer_date: 2013-07-29 20:16:49
+  value: 9.99
+  withraw: false
+  auction_id: 2
+  user_id: 1
+
+two:
+  offer_date: 2013-07-29 20:16:49
+  value: 9.99
+  withraw: false
+  auction_id: 2
+  user_id: 1

@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  description: MyString
+  auction_id: 1
+  id: 1
+
+two:
+  description: MyString
+  auction_id: 2
+  id: 2

@@ -1,0 +1,23 @@
+Model
+
+- User :name, :email, :phone, :password, :password_confirmation, has_many bids
+- Auction has_many bids, :winning_bid, has_one :item, :date_opened, :date_closed, :opened
+- Bid belongs_to auction, has_one user, :date, :value
+- Item belongs_to Auction :description
+
+Controllers (and views)
+- user_controller : new, edit, update, create, show, destroy, forgot, reset, correct_user
+- auction_controller : new, edit, update, create, show, destroy
+- bid_controller (auction/) : new, create, withraw, show
+
+Commands:
+- User 
+	rails generate scaffold User name:string email:string phone:string password_digest:string
+- Auction
+	rails generate scaffold Auction date_opened:datetime date_closed:datetime opened:boolean item_id:integer
+- Bid
+	rails generate scaffold Bid offer_date:datetime value:decimal withraw:true auction_id:integer user_id:integer
+- Item
+	rails generate model Item description:string auction_id:integer
+- UserBids
+

@@ -1,0 +1,14 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+user:
+  name: Ilan Ben Hagai
+  email: ilan@gmail.com
+  phone: 052-8741422
+  password_digest: DIGGG
+
+two:
+  name: Roi something
+  email: roi@gmail.com
+  phone: 054-2342422
+  password_digest: DIGGG2
+
