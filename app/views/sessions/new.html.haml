@@ -1,0 +1,14 @@
+- provide(:title, t(:sign_in))
+%h1= t(:sign_in)
+
+%div.row
+  %div.span6.offset3
+    = semantic_form_for(:session, url: sessions_path) do |f|
+      = f.input :email, label: t(:email)
+      = f.password_field :password, label: t(:password)
+      = f.actions do
+        = f.action :submit, label: t(:sign_in)
+        = f.action :cancel, url: root_path
+        = link_to t(:forgot_password),
+          forgot_path,
+          class: "action link_action btn"
