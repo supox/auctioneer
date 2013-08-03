@@ -1,7 +1,7 @@
 class UsersController < ApplicationController
 	before_filter :signed_in_user, only: [:index]
 	before_filter :correct_user, except:[:index, :new, :create, :forgot, :reset]
-  # before_filter :admin_user, only: [:destroy]
+  before_filter :admin_user, only: [:destroy]
 	
   # GET /users
   # GET /users.json
@@ -109,7 +109,7 @@ class UsersController < ApplicationController
       else
         render :action => :reset
       end
-    end    
+    end
   end
   
   protected

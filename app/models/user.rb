@@ -48,7 +48,14 @@ class User < ActiveRecord::Base
     return false
   end
 
-
+	def admin?
+		return self.admin
+	end
+	
+	def admin!
+		toggle!(:admin) unless admin?
+	end
+	
 	private
 	
 	# safe strip

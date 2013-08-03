@@ -7,7 +7,7 @@ class UserTest < ActiveSupport::TestCase
 
 	test "should response" do
 		methods =[:email, :name, :phone, :password, :password_confirmation, :password_digest, 
-		:bids, :remember_token]
+		:bids, :remember_token, :admin]
 		methods.each do |meth|
 			assert_respond_to @user, meth
 		end
@@ -118,6 +118,15 @@ class UserTest < ActiveSupport::TestCase
 		user2.password_confirmation = "pass123"
 		
 		assert(!user2.valid?, "same mail should be invalid.")
+	end
+	
+	test "admin toggle" do
+		refute @user.admin?
+		
+		@user.admin!
+		@user.save!
+		@user.reload
+		assert @user.admin?
 	end
 end
 

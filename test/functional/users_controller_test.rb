@@ -47,8 +47,21 @@ class UsersControllerTest < ActionController::TestCase
     put :update, id: @user, user: get_params
     assert_redirected_to user_path(assigns(:user))
   end
+  
+ 	test "should not change admin upon update" do
+  	sign_in @user
+  	params = get_params.merge({admin:true})
+  	begin
+	    put :update, id: @user, user: params
+    rescue
+    end
+    @user.reload
+    refute(@user.admin?)
+	end
+
 
   test "should destroy user" do
+  	@user.admin!
   	sign_in @user
     assert_difference('User.count', -1) do
       delete :destroy, id: @user
@@ -56,4 +69,13 @@ class UsersControllerTest < ActionController::TestCase
 
     assert_redirected_to users_path
   end
+  
+  test "should not destroy user if not admin" do
+  	sign_in @user
+    assert_no_difference('User.count') do
+      delete :destroy, id: @user
+    end
+
+    assert_redirected_to root_path
+  end  
 end
