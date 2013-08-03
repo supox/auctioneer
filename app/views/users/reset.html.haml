@@ -1,0 +1,13 @@
+- provide(:title, t(:reset_password))
+%h1= t(:reset_password)
+
+%div.row
+  %div.span6.offset3
+    = semantic_form_for(@user, :url => reset_path(@reset_code)) do |f|
+      = f.semantic_errors :state
+      
+      = f.input :password, as: :password, label: t(:password)
+      = f.input :password_confirmation, as: :password
+      = f.actions do
+        = f.action :submit
+        = f.action :cancel, :as => :link, label: :cancel

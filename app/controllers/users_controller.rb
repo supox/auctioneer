@@ -79,6 +79,39 @@ class UsersController < ApplicationController
     end
   end
   
+  def forgot
+    if request.post?
+      user = User.find_by_email(params[:user][:email])
+      if user
+        user.create_reset_code
+        flash[:notice] = I18n.t("reset_code_sent_to", email: user.email)
+        redirect_back_or('/')
+      else
+        flash[:error] = I18n.t("mail_does_not_exist_in_system", email: params[:user][:email])
+      end
+    end
+  end
+  
+  def reset
+    @reset_code = params[:reset_code]
+    @user = User.find_by_reset_password_token(@reset_code) unless @reset_code.nil?
+  
+    if @user.nil?
+	    redirect_back_or('/') 
+	    return
+    end
+	    
+    if request.put?
+      if @user.reset_password(@reset_code, params[:user][:password], params[:user][:password_confirmation])
+        sign_in @user
+        flash[:success] = t(:password_has_been_reset_successfully)
+        redirect_to @user
+      else
+        render :action => :reset
+      end
+    end    
+  end
+  
   protected
   
   def correct_user
