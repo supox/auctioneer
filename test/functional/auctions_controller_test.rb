@@ -1,8 +1,10 @@
 require 'test_helper'
+include SessionsHelper
 
 class AuctionsControllerTest < ActionController::TestCase
   setup do
     @auction = auctions(:one)
+    sign_in users(:one)
   end
 
   test "should get index" do
@@ -18,7 +20,7 @@ class AuctionsControllerTest < ActionController::TestCase
 
   test "should create auction" do
     assert_difference('Auction.count') do
-      post :create, auction: { date_closed: @auction.date_closed, date_opened: @auction.date_opened, item_id: @auction.item_id, opened: @auction.opened }
+      post :create, auction: auction_params
     end
 
     assert_redirected_to auction_path(assigns(:auction))
@@ -35,7 +37,7 @@ class AuctionsControllerTest < ActionController::TestCase
   end
 
   test "should update auction" do
-    put :update, id: @auction, auction: { date_closed: @auction.date_closed, date_opened: @auction.date_opened, item_id: @auction.item_id, opened: @auction.opened }
+    put :update, id: @auction, auction: auction_params
     assert_redirected_to auction_path(assigns(:auction))
   end
 
@@ -46,4 +48,30 @@ class AuctionsControllerTest < ActionController::TestCase
 
     assert_redirected_to auctions_path
   end
+  
+  test "should be valid user" do
+		sign_out
+
+  	[:index, :new].each do |method|
+			get method
+	  	assert_redirected_to signin_path
+  	end
+  	[:show, :edit].each do |method|
+			get method, id: @auction
+	  	assert_redirected_to signin_path
+  	end
+
+    delete :destroy, id:@auction
+  	assert_redirected_to signin_path
+  	
+    post(:create, {auction:auction_params})
+  	assert_redirected_to signin_path
+    put(:update, {id:@auction.id, auction:auction_params})
+  	assert_redirected_to signin_path
+   end
+  
+  	def auction_params
+			{ date_closed: @auction.date_closed, date_opened: @auction.date_opened, opened: @auction.opened }  	
+  	end
+  
 end

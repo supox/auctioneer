@@ -53,6 +53,8 @@ class AuctionTest < ActiveSupport::TestCase
 	end
 	
 	def test_bid
+		@auction.bids.clear
+		@auction.save!
 		# test zero
 		assert_equal(0, @auction.bids.size)
 
@@ -107,6 +109,7 @@ class AuctionTest < ActiveSupport::TestCase
 		# custom date
 		offer_date = DateTime.new(2010)
 		create_bid(12, offer_date:offer_date)
+		@auction.save!
 		assert_equal(offer_date, @auction.bids.first.offer_date)
 	
 		# automatic date

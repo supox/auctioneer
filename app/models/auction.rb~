@@ -11,11 +11,13 @@ class Auction < ActiveRecord::Base
 	
 	def bid(params)
 		raise 'Auction Closed' unless open?
+		puts params.inspect if params[:offer_date]
+		
 		self.bids.build(params)
 	end
 	
 	def winning_bid
-		self.bids.order(:value).where(["withraw = ?", false]).last
+		self.bids.where(["withraw = ?", false]).order(:value).last
 	end
 	
 	def open?

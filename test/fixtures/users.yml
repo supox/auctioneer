@@ -5,6 +5,7 @@ one:
   email: ilan@gmail.com
   phone: 052-8741422
   password_digest: DIGGG
+  remember_token: 43GJDKGJ!
   id: 1
 
 two:
@@ -12,5 +13,6 @@ two:
   email: roi@gmail.com
   phone: 054-2342422
   password_digest: DIGGG2
+  remember_token: 43GJDK#@!  
   id: 2
 

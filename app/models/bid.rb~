@@ -1,5 +1,5 @@
 class Bid < ActiveRecord::Base
-	attr_accessible :offer_date, :value, :withraw
+	attr_accessible :offer_date, :value, :withraw, :user, :auction
   	belongs_to :auction
   	belongs_to :user
 	default_scope order: 'offer_date'
@@ -11,6 +11,10 @@ class Bid < ActiveRecord::Base
 	
 	protected
 	def set_defaults
+		puts self.offer_date.inspect
+		#puts params.inspect if params[:offer_date]
+		
+
 		self.offer_date ||= DateTime.now
 		self.withraw = false unless self.withraw
 	end

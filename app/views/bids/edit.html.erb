@@ -2,5 +2,5 @@
 
 <%= render 'form' %>
 
-<%= link_to 'Show', @bid %> |
-<%= link_to 'Back', bids_path %>
+<%= link_to 'Show', [@auction, @bid] %> |
+<%= link_to 'Back', auction_bids_path(@auction) %>
