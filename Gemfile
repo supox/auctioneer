@@ -17,10 +17,8 @@ end
 
 group :development, :test do
 	gem 'spork', '~> 1.0rc'
-
-#  gem 'spork-rails', github: 'sporkrb/spork-rails'
-#  gem 'guard-spork', '1.5.0'
-#  gem 'childprocess', '0.3.6'
+  gem "capybara"
+  gem "launchy"
 end
 
 
@@ -38,7 +36,7 @@ end
 
 gem 'jquery-rails'
 
-# To use ActiveModel has_secure_password
+# To use ActiveModel hacs_secure_password
 gem 'bcrypt-ruby', '~> 3.0.0'
 
 # To use Jbuilder templates for JSON

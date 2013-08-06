@@ -97,3 +97,4 @@ class AuctionsControllerTest < ActionController::TestCase
   	end
   
 end
+

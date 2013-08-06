@@ -25,7 +25,6 @@ Spork.each_run do
 	Dir["#{Rails.root}/app/models//*.rb"].each do |model|
 		load model
 	end
-
 end
 
 # --- Instructions ---
@@ -66,3 +65,9 @@ class ActiveSupport::TestCase
 
   # Add more helper methods to be used by all tests here...
 end
+
+class ActionDispatch::IntegrationTest
+  # Make the Capybara DSL available in all integration tests
+  include Capybara::DSL
+end
+

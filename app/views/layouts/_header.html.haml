@@ -1,0 +1,13 @@
+%header.navbar.navbar-inverse.navbar-fixed-top
+  %div.navbar-inner
+    %div.container
+      = link_to t(:watering_project), root_path, id: "logo"
+      %nav
+        %ul{ :class =>["nav", "pull-#{t('css.right', default:'right')}"] }
+          %li= link_to t(:home), root_path
+          %li= link_to t(:about), about_path
+          %li
+            - if signed_in?
+              = link_to t(:sign_out), signout_path, method: "delete"
+            - else
+              = link_to t(:sign_in), signin_path
