@@ -1,6 +1,7 @@
 class AuctionsController < ApplicationController
   before_filter :valid_auction, except: [:index, :new, :create]
 	before_filter :signed_in_user
+  before_filter :admin_user, only: [:create, :destroy]
 
   # GET /auctions
   # GET /auctions.json

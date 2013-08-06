@@ -19,12 +19,21 @@ class AuctionsControllerTest < ActionController::TestCase
   end
 
   test "should create auction" do
+		set_as_admin
+  	
     assert_difference('Auction.count') do
       post :create, auction: auction_params
     end
 
     assert_redirected_to auction_path(assigns(:auction))
   end
+
+  test "should not create auction if not admin" do
+    assert_no_difference('Auction.count') do
+      post :create, auction: auction_params
+    end
+  end
+
 
   test "should show auction" do
     get :show, id: @auction
@@ -42,11 +51,18 @@ class AuctionsControllerTest < ActionController::TestCase
   end
 
   test "should destroy auction" do
+  	set_as_admin  	
     assert_difference('Auction.count', -1) do
       delete :destroy, id: @auction
     end
 
     assert_redirected_to auctions_path
+  end
+
+  test "should not destroy auction if not admin" do
+    assert_no_difference('Auction.count') do
+      delete :destroy, id: @auction
+    end
   end
   
   test "should be valid user" do
@@ -72,6 +88,12 @@ class AuctionsControllerTest < ActionController::TestCase
   
   	def auction_params
 			{ date_closed: @auction.date_closed, date_opened: @auction.date_opened, opened: @auction.opened }  	
+  	end
+  	
+  	def set_as_admin
+		 	current_user.admin!
+			current_user.save!
+			sign_in current_user  	
   	end
   
 end
