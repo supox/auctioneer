@@ -1,0 +1,11 @@
+= f.semantic_errors :state
+
+= f.input :name
+= f.input :email, as: :email
+= f.input :phone, as: :phone
+= f.input :password, as: :password
+= f.input :password_confirmation, as: :password
+= f.actions do
+	= f.action :submit
+	= f.action :cancel, :as => :link, label: :cancel
+

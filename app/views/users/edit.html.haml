@@ -1,0 +1,7 @@
+= provide(:title, t(:edit_user))
+%h1= t(:edit_user)
+
+%div.row
+  %div.span6.offset3
+    = semantic_form_for(@user) do |f|
+      = render 'fields', f: f
