@@ -11,12 +11,11 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130731181150) do
+ActiveRecord::Schema.define(:version => 20130810075559) do
 
   create_table "auctions", :force => true do |t|
     t.datetime "date_opened"
     t.datetime "date_closed"
-    t.boolean  "opened"
     t.integer  "item_id"
     t.datetime "created_at",  :null => false
     t.datetime "updated_at",  :null => false

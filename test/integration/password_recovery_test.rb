@@ -7,7 +7,7 @@ class PasswordRecoveryTest < ActionDispatch::IntegrationTest
 
   test "signin should have forgot path" do
   	get signin_path
-  	assert_match forgot_path, body
+  	assert_match forgot_path, response.body
  	end
  	
  	test "should get forgot" do

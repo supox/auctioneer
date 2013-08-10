@@ -1,9 +1,8 @@
 class Item < ActiveRecord::Base
   attr_accessible :description
   belongs_to :auction
+  
   validates_length_of :description, in: 3..500, allow_blank: false
-  validates :auction, presence: true
-
   before_validation :strip_whitespace
 
   private

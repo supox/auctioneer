@@ -15,7 +15,7 @@
   <tr>
     <td><%= auction.date_opened %></td>
     <td><%= auction.date_closed %></td>
-    <td><%= auction.opened %></td>
+    <td><%= auction.open? %></td>
     <td><%= auction.item_id %></td>
     <td><%= link_to 'Show', auction %></td>
     <td><%= link_to 'Edit', edit_auction_path(auction) %></td>

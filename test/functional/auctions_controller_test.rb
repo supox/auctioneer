@@ -22,7 +22,7 @@ class AuctionsControllerTest < ActionController::TestCase
 		set_as_admin
   	
     assert_difference('Auction.count') do
-      post :create, auction: auction_params
+      post :create, auction: auction_params.merge({item_attributes:{description:"my description"}})
     end
 
     assert_redirected_to auction_path(assigns(:auction))
@@ -87,7 +87,7 @@ class AuctionsControllerTest < ActionController::TestCase
    end
   
   	def auction_params
-			{ date_closed: @auction.date_closed, date_opened: @auction.date_opened, opened: @auction.opened }  	
+			{ date_closed: @auction.date_closed, date_opened: @auction.date_opened }
   	end
   	
   	def set_as_admin

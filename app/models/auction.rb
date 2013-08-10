@@ -1,5 +1,5 @@
 class Auction < ActiveRecord::Base
-	attr_accessible :date_closed, :date_opened, :opened
+	attr_accessible :date_closed, :date_opened, :item_attributes
 	
 	has_one :item, dependent: :destroy
 	has_many :bids, dependent: :destroy
@@ -8,6 +8,8 @@ class Auction < ActiveRecord::Base
 	validates :item, presence: true
 	validates_uniqueness_of :item_id
 	validate :times_validation
+
+	accepts_nested_attributes_for :item
 	
 	def bid(params)
 		raise 'Auction Closed' unless open?

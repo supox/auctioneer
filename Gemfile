@@ -16,7 +16,7 @@ group :development do
 end
 
 group :development, :test do
-	gem 'spork', '~> 1.0rc'
+	# gem 'spork', '~> 1.0rc'
   gem "capybara"
   gem "launchy"
 end

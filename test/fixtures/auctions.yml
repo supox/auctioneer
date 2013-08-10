@@ -2,12 +2,10 @@
 
 one:
   date_opened: 2013-07-29 20:16:40
-  opened: false
   item_id: 1
   id: 1
 
 two:
   date_opened: 2013-07-29 20:16:40
-  opened: false
   item_id: 2
   id: 2

@@ -7,7 +7,7 @@ class AuctionTest < ActiveSupport::TestCase
 	end
 
 	test "should response" do
-		methods =[:date_closed, :date_opened, :opened, :item, :bids, :winning_bid, :open?, :close!]
+		methods =[:date_closed, :date_opened, :item, :bids, :winning_bid, :open?, :close!]
 		methods.each do |meth|
 			assert_respond_to @auction, meth
 		end

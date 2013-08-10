@@ -16,14 +16,11 @@ def setup
 		assert @item.valid?
 	end
 
-	test "desciption and auction mustn't be nil" do
+	test "desciption mustn't be nil" do
 		@item.description  = nil
 		refute @item.valid?
 		@item.description = "My description"
 		assert @item.valid?
-
-		@item.auction_id = nil
-		refute @item.valid?
 	end
 	
 	test "description validation" do

@@ -27,6 +27,7 @@ class AuctionsController < ApplicationController
   # GET /auctions/new.json
   def new
     @auction = Auction.new
+    @auction.build_item
 
     respond_to do |format|
       format.html # new.html.erb
@@ -42,8 +43,7 @@ class AuctionsController < ApplicationController
   # POST /auctions.json
   def create
     @auction = Auction.new(params[:auction])
-		@auction.item ||= Item.new({description:"No Description"})
-		
+
     respond_to do |format|
       if @auction.save
         format.html { redirect_to @auction, notice: 'Auction was successfully created.' }
