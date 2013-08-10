@@ -40,9 +40,11 @@ module SessionsHelper
   end
 
   def signed_in_user
-    unless signed_in?
+  	signed = signed_in?
+    unless signed
       store_location
       redirect_to signin_path, notice: "Please sign in."
     end
+		signed
   end
 end

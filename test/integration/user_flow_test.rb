@@ -61,6 +61,28 @@ class UserFlowTest < ActionDispatch::IntegrationTest
 		assert_not_match user_path(user), current_url
 	end
 	
+	test "should sign out" do
+		user = get_user
+		sign_in user
+		delete signout_path
+		assert_redirected_to root_path
+		
+		# make sure we are not sign-in anymore.
+		get user_path(user)
+		assert_redirected_to signin_path
+	end
+	
+	test "should remember path when signin" do
+		visit users_path
+		# redirected to signin
+		user = get_user
+  	fill_in("session_email", with: user.email)
+  	fill_in("session_password", with: user.password)
+		click_on 'session_submit_action'
+		
+		assert_equal users_path, current_path
+	end
+	
 	def sign_in user		
   	visit signin_path
   	fill_in("session_email", with: user.email)

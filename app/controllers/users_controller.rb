@@ -117,8 +117,11 @@ class UsersController < ApplicationController
   protected
   
   def correct_user
-    @user = User.find(params[:id])
-    redirect_to(root_path) unless current_user?(@user) || signed_in? && current_user.admin?
+	  if signed_in_user
+			# make sure it is the correct user
+		  @user = User.find(params[:id])
+		  redirect_to(root_path) unless current_user?(@user) || current_user.admin?
+	  end
   end
 
 end
