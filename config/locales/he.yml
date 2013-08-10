@@ -333,12 +333,12 @@ he:
   sign_in : התחבר
   sign_out : התנתק
   invalid_email_password_combination : שם משתמש או סיסמא לא נכונים
-  watering_project: השקייה
+  project_name: Auctioneer
   home: בית
   about: אודות
   signin: כניסה 
   contact: צור קשר
-  watering_team: מערכות השקייה בע"מ
+  project_team: מכירות פומביות בע"מ
   sprinkler: בקר
   sprinklers: בקרים
   sprinkler_created: הבקר נשמר

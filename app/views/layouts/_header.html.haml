@@ -1,7 +1,7 @@
 %header.navbar.navbar-inverse.navbar-fixed-top
   %div.navbar-inner
     %div.container
-      = link_to t(:watering_project), root_path, id: "logo"
+      = link_to t(:project_name), root_path, id: "logo"
       %nav
         %ul{ :class =>["nav", "pull-#{t('css.right', default:'right')}"] }
           %li= link_to t(:home), root_path

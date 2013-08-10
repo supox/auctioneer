@@ -3,7 +3,7 @@
   %head
     %title= yield(:title)
     = stylesheet_link_tag "application", :media => "all"
-    = stylesheet_link_tag "controllers/"+controller.controller_name if WateringProject::Application.assets.find_asset("controllers/#{controller.controller_name}.css")    
+    = stylesheet_link_tag "controllers/"+controller.controller_name if Auctioneer::Application.assets.find_asset("controllers/#{controller.controller_name}.css")    
     = javascript_include_tag "application"
     = csrf_meta_tags
     = render 'layouts/shim'
