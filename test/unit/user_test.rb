@@ -25,6 +25,7 @@ class UserTest < ActiveSupport::TestCase
 	
 	test "check reset password send mail" do
 		@user.create_reset_code
+		@user.save!
 		mail = ActionMailer::Base.deliveries.last
 		assert_equal @user.email, mail.to.first
 		assert_match(@user.reset_password_token, mail.body.encoded)
