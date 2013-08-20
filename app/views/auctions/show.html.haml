@@ -1,0 +1,18 @@
+= provide(:title, @auction.item.description)
+%h1= @auction.item.description
+
+
+= show_menu t(:edit),
+  link_to(t(:edit), edit_auction_path(@auction))
+
+- table = {	date_opened:@auction.date_opened.to_s,	date_closed:@auction.date_closed.to_s, item:@auction.item.description, opened: (@auction.open? ? t(:yes) : t(:no))}
+%ul.auction
+	-table.each do |key,val|
+		%li
+			= Auction.human_attribute_name(key) + " - "
+			= val
+
+- if current_user.admin?
+	= link_to t(:delete), @auction, method: :delete, data: { confirm: t(:you_sure?) }
+= link_to t(:back), auctions_path
+

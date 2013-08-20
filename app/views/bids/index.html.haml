@@ -1,0 +1,35 @@
+= provide(:title, Bid.model_name.human)
+%h1= Bid.model_name.human
+
+-methods= [:offer_date, :value, :withraw, :auction, :user]
+-if @bids.any?
+	%table.table.table-condensed
+		%tr
+			- methods.each do |method|
+				%th= Bid.human_attribute_name(method)
+			- if current_user.admin?
+				%th
+				%th
+				%th
+		-@bids.each do |bid|
+			%tr
+				-methods.each do |method|
+					%td
+						- case method
+							- when :withraw
+								= (bid.withraw? ? t(:yes) : t(:no))
+							- when :auction
+								= bid.auction.item.description
+							- when :user
+								= bid.user.name
+							- else
+								= bid[method]
+								
+				%td= link_to t(:show), auction_bid_path(@auction, bid)
+
+				- if current_user.admin?
+					%td= link_to t(:edit), edit_auction_bid_path(@auction, bid)
+					%td= link_to t(:destroy), auction_bid_path(@auction, bid), method: :delete, data: { confirm: t(:you_sure?) }
+
+= link_to t(:new_bid), new_auction_bid_path(@auction)
+

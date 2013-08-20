@@ -6,10 +6,11 @@ class AuctionsController < ApplicationController
   # GET /auctions
   # GET /auctions.json
   def index
+  	@user = current_user
     @auctions = Auction.all
 
     respond_to do |format|
-      format.html # index.html.erb
+      format.html
       format.json { render json: @auctions }
     end
   end

@@ -1,0 +1,9 @@
+= provide(:title, Auction.model_name.human)
+%h1= Auction.model_name.human
+
+%div.row
+  %div.span6.offset3
+    = semantic_form_for(@auction) do |f|
+      = render 'fields', f: f
+      
+= link_to t(:back), auctions_path

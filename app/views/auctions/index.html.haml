@@ -1,0 +1,27 @@
+= provide(:title, t(:listing_auctions))
+%h1= t(:listing_auctions)
+
+-methods= [:date_opened, :date_closed, :opened, :item]
+-if @auctions.any?
+	%table.table.table-condensed
+		%tr
+			- methods.each do |method|
+				%th= Auction.human_attribute_name(method)
+			- if @user.admin?
+				%th
+				%th
+				%th
+		-@auctions.each do |auction|
+			%tr
+				-methods.each do |method|
+					- if method == :opened
+						%td= auction.open?
+					- else
+						%td= auction[method]
+				- if @user.admin?
+					%td= link_to t(:show), auction 
+					%td= link_to t(:edit), edit_auction_path(auction) 
+					%td= link_to t(:destroy), auction, method: :delete, data: { confirm: t(:you_sure?) }
+
+= link_to t(:new_auction), new_auction_path if @user.admin?
+

@@ -1,0 +1,9 @@
+= f.semantic_errors :state
+= f.input :date_opened
+= f.input :date_closed
+= f.semantic_fields_for :item do |builder|
+	= builder.input :description
+= f.actions do
+	= f.action :submit
+	= f.action :cancel, :as => :link, label: :cancel
+

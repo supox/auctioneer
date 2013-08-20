@@ -1,0 +1,19 @@
+= provide(:title, @user.name)
+%h1= @user.name
+
+= show_menu t(:edit),
+  link_to(t(:edit), edit_user_path(@user))
+
+%ul.user
+  %li= t(:name) + " - " + @user.name
+  %li= t(:email) + " - " + @user.email
+  %li= t(:phone) + " - " + @user.phone
+
+- if @user.bids.any?
+  %h3= t(:bids)
+  %ul.bids
+    = render partial: 'shared/bids', collection: @user.bids
+
+- if current_user.admin? && !current_user?(@user)
+  = link_to t(:delete), @user, method: :delete, data: { confirm: t(:you_sure?) }
+

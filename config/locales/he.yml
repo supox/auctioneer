@@ -201,14 +201,9 @@ he:
   activerecord:
     models:
       user: משתמש
-      sprinkler: בקר
-      sensor_reading: קריאה
-      sprinkler_plan: תוכנית
-      valf: מגוף
-      sensor: חיישן
-      alarm: התראה
-      valf_irrigation: קריאת השקייה
-      sprinkler_log: לוג בקר
+      auction: מכירה פומבית
+      bid: הצעה
+      item: מוצר
     attributes:
       user:
         password: "סיסמא"
@@ -216,91 +211,23 @@ he:
         password_confirmation: "וידוא סיסמא"
         name: "שם"
         email: "דואר אלקטרוני"
-        time_zone: אזור זמן
+        admin: מנהל ראשי
         phone: טלפון
-      sensor_reading:
-        sensor_value: ערך הקריאה
-        read_time: זמן הקריאה
-        sensor_reading: קריאה
-      sprinkler_plan:
-        title: השם
-        start_date: זמן התחלה
-        end_date: זמן סיום
-        schedule: התזמון
-        plan_type: תוכנית השקיה
-        valves: מגופים
-      valf:
-        identifier: מזהה
-        port_index: מספר יציאה
-        irrigation_mode: סוג השקייה
-        valf_type: סוג מגוף
-      sensor:
-        identifier: מזהה
-        port_index: מספר יציאה
-        sensor_type: סוג חיישן
-        convert_ratio: יחס המרה
-        valf_id: מגוף
-        no_water_pulse_reaction_delay: זמן תגובה לחוסר מים (שניות)
-      alarm:
-         alarm_title: כותרת
-         alarm_value: ערך
-         condition_type: תנאי
-      sprinkler:
-         identifier: מזהה
-         latitude: קו רוחב
-         longitude: קו אורך
-         mac_address: מזהה mac
-         machine_version: גרסת מכונה
-         refresh_rate_seconds: זמן עדכון בשניות
-         main_valve_timing: תזמון המגוף הראשי
-         main_valve_delay: השהיית המגוף הראשי
-         main_valf: מגוף ראשי
-      valf_plan:
-        amount: כמות השקייה
-      valf_irrigation:
-        amount: כמות השקייה
-        start_time: זמן התחלה
-        end_time: זמן סיום
-      sprinkler_log:
-        event_type: סוג אירוע
-        event_time: זמן האירוע
-        port_index: חיבור
+      bid:
+        offer_date: "זמן הצעה"
+        value: "ערך"
+        withraw: "נמשך"
+        user: "מציע"
+        auction: מכירה פומבית
+      item:
+        description: "תיאור"
+      auction:
+        date_closed: "תאריך סגירה"
+        date_opened: "תאריך פתיחה"
+        opened: פעיל
+        item: תיאור
     errors:
       <<: *errors
-
-  classy_enum:
-    sensor_type:
-      temperature: 'טמפרטורה'
-      pressure: 'לחץ'
-      differential_pressure: מד לחץ דיפרנציאלי
-      humidity: 'לחות'
-      water_meter: 'מד מים'
-      fert_meter: מד דישון
-    plan_type:
-      watering: השקייה
-      fertilizing: דישון
-      cleaning: שטיפה
-    condition_type:
-      greater_than: "גדול מ"
-      equal: "שווה ל"
-      less_than: "פחות מ"
-      not_equal: "לא שווה ל"
-    irrigation_mode:
-      time: זמן
-      volume: נפח
-    valf_type:
-      normal: רגיל
-      fertilization: דישון
-      main: ראש ראשי
-    main_valve_timing:
-      delayed: מושהה
-      advanced: מקדים
-      simultaneous: "בו זמנית"
-    sprinkler_log_type:
-      start_irrigation: תחילת השקייה
-      end_irrigation: סוף השקייה
-      no_communication: אין תקשורת
-
   css:
     right: left
     left: right
@@ -326,10 +253,13 @@ he:
   # Application specific attributes
   name: שם
   email: דואר אלקטרוני
+  phone: טלפון
   password: סיסמא
   confirmation: וידוא סיסמא
   create_user: צור משתמש
   new_user : משתמש חדש
+  new_auction: מכירה פומבית חדשה
+  new_bid: הצעה חדשה
   sign_in : התחבר
   sign_out : התנתק
   invalid_email_password_combination : שם משתמש או סיסמא לא נכונים
@@ -339,85 +269,28 @@ he:
   signin: כניסה 
   contact: צור קשר
   project_team: מכירות פומביות בע"מ
-  sprinkler: בקר
-  sprinklers: בקרים
-  sprinkler_created: הבקר נשמר
-  could_not_create_sprinkler: לא ניתן לשמור את הבקר
-  new_sprinkler: בקר חדש
-  edit_sprinkler: ערוך בקר
-  valves: מגופים
-  sensors: חיישנים
   form_contains_error: "הטופס מכיל שגיאות"
-  new_reading: "קריאה חדשה"
   send: 'שלח'
-  new_sensor: צור חיישן
-  edit_sensor: ערוך חיישן
-  sensor_saved: החיישן נשמר!
-  could_not_create_sensor: לא ניתן ליצור את החיישן
-  sensor_value: קריאת החיישן
-  sensor_id: מזהה חיישן
-  reading_created: הקריאה נוצרה!
-  read_time: זמן הקריאה
-  could_not_create_reading: לא ניתן ליצור את הקריאה
   only_numbers: חייב להיות מספרי
   must_be_a_valid_date: חייב להיות תאריך חוקי
-  sensor_readings: קריאות
-  identifier: מזהה
-  port: חיבור
-  last_readings: קריאות אחרונות
-  reading_time: זמן הקריאה
-  reading: קריאה
-  no_repeat: ללא חזרה
-  daily_repeat: חזרה יומית
-  weekly_repeat: חזרה שבועית
-  monthly_repeat: חזרה חודשית
-  next_plans: תוכניות השקייה
-  new_plan: תוכנית חדשה
-  watering: השקייה
-  today: היום
-  repeat: חזרה
-  title: כותרת
-  plan_created: התוכנית נוצרה
-  could_not_create_plan: לא ניתן ליצור תוכנית
-  start_time: זמן התחלה
-  end_time: זמן סיום
   edit_user: עריכת משתמש
   save_changes: שמור שינויים
   profile_updated: השינויים נשמרו
   welcome: ברוך הבא
-  plan_updated: השינויים נשמרו
-  create_plan: צור תוכנית
-  edit_plan: ערוך תוכנית
-  delete_plan: מחק תוכנית
   back: חזור
   clear: נקה
-  washing: שטיפה
-  watering: השקייה
-  new_valf: מגוף חדש
-  edit_valf: ערוך מגוף
-  valf_created: המגוף נשמר
-  could_not_create_valf: השמירה נכשלה
-  deleted_success: המחיקה הצליחה
   delete: מחק
   you_sure?: אתה בטוח?
-  delete_plan: מחק תוכנית
-  new_alarm: התראה חדשה
-  to_all_alarms: לכל ההתראות
-  all_alarms: כל ההתראות
-  edit_alarm: ערוך התראה
-  alarm_saved: ההתראה נוצרה
-  alarms: התראות
-  changes_saved: השינויים נשמרו
-  could_not_create: לא ניתן לשמור
-  for_sensor: עבור חיישן
   edit: ערוך
-  liters: ליטר
-  seconds: שניות
-  minutes: דקות
-  type: סוג
+  show: הצג
+  destroy: מחק
   forgot_password: שכחתי סיסמא
   reset_code_sent_to: 'איפוס סיסמא נשלח ל %{email}'
   mail_does_not_exist_in_system: '%{email} אינו קיים במערכת'
   reset_password: אפס סיסמא
   click_the_link_to_reset_password: לחץ על הלינק על מנת לאפס את הסיסמא
   password_has_been_reset_successfully: הסיסמא אופסה בהצלחה
+  listing_auctions: "מכירות פומביות"
+  yes: "כן"
+  no: "לא"
+  

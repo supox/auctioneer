@@ -1,0 +1,26 @@
+= provide(:title, @auction.item.description)
+%h1= @auction.item.description
+
+
+= show_menu t(:edit),
+  link_to(t(:edit), edit_auction_bid_path(@auction, @bid))
+
+%ul.bid
+	%li
+		= Auction.human_attribute_name(:item) + " - "
+		= link_to(@auction.item.description, @auction)
+	%li= Bid.human_attribute_name(:offer_date) + " - " + @bid.offer_date.to_s
+	%li= Bid.human_attribute_name(:value) + " - " + @bid.value.to_s
+	%li
+		= Bid.human_attribute_name(:withraw) + " - "
+		=(@bid.withraw? ? t(:yes) : t(:no))
+	%li
+		= User.model_name.human + " - "
+		=link_to(@bid.user.name, @bid.user)
+
+- if current_user.admin?
+	= link_to t(:edit), edit_auction_bid_path(@auction, @bid)
+	= link_to t(:destroy), auction_bid_path(@auction, @bid), method: :delete, data: { confirm: t(:you_sure?) }
+
+= link_to t(:back), auction_bids_path(@auction)
+

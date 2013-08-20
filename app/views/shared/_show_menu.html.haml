@@ -1,0 +1,8 @@
+%div.btn-toolbar
+  %div.btn-group
+    %button.btn.btn-primary.dropdown-toggle.entry{"data-toggle"=>"dropdown"}
+      = title
+      %span.caret
+    %ul.dropdown-menu
+      - items.each do |item|
+        %li= item

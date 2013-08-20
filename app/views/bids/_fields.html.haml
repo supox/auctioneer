@@ -1,0 +1,9 @@
+= f.semantic_errors :state
+= f.input :value
+= f.input :withraw
+
+= f.actions do
+	= f.action :submit
+	= f.action :cancel, :as => :link, label: :cancel
+
+
