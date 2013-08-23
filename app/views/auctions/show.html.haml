@@ -5,12 +5,18 @@
 = show_menu t(:edit),
   link_to(t(:edit), edit_auction_path(@auction))
 
-- table = {	date_opened:@auction.date_opened.to_s,	date_closed:@auction.date_closed.to_s, item:@auction.item.description, opened: (@auction.open? ? t(:yes) : t(:no))}
+- table =	{	date_opened: l(@auction.date_opened) + " - " + distance_of_time_in_words_to_now_with_future(@auction.date_opened),
+	date_closed:l(@auction.date_closed) + " - " + distance_of_time_in_words_to_now_with_future(@auction.date_closed),
+	item:@auction.item.to_s,
+	opened: (@auction.open? ? t(:yes) : t(:no))}
 %ul.auction
 	-table.each do |key,val|
 		%li
 			= Auction.human_attribute_name(key) + " - "
 			= val
+
+%div
+	= link_to t(:bid), new_auction_bid_path(@auction), :class=>"btn btn-primary"
 
 - if current_user.admin?
 	= link_to t(:delete), @auction, method: :delete, data: { confirm: t(:you_sure?) }

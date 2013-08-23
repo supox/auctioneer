@@ -1,5 +1,7 @@
 module ApplicationHelper
- def include_javascript(file)
+	include CustomDateHelper
+
+	def include_javascript(file)
       s = " <script type=\"text/javascript\">" + render(:file => file) + "</script>"
       content_for(:head, raw(s))
   end
@@ -8,3 +10,4 @@ module ApplicationHelper
     render partial: "shared/show_menu", :locals => { :title => title, :items => items } 
   end
 end
+

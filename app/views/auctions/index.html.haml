@@ -14,10 +14,15 @@
 		-@auctions.each do |auction|
 			%tr
 				-methods.each do |method|
-					- if method == :opened
-						%td= auction.open?
-					- else
-						%td= auction[method]
+					- case method
+						- when :opened
+							%td= (auction.open? ? t(:yes):t(:no))
+						- when :date_opened, :date_closed
+							%td= l auction[method]
+						- when :item
+							%td= auction.item.description
+						- else
+							%td= auction[method]
 				- if @user.admin?
 					%td= link_to t(:show), auction 
 					%td= link_to t(:edit), edit_auction_path(auction) 

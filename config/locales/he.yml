@@ -293,4 +293,6 @@ he:
   listing_auctions: "מכירות פומביות"
   yes: "כן"
   no: "לא"
-  
+  time_experation_past: "לפני %{date}"
+  time_experation_future: "בעוד %{date}"
+

@@ -33,4 +33,11 @@ def setup
 			refute @item.valid?, "#{desc} should be invalid description."
 		end	
 	end
+	
+	test "to_s should be equal to description" do
+		["desc", "12345", "34343"*50, "desd sd asdefw !!!~"].each do |desc|
+			@item.description = desc
+			assert_equal desc, @item.to_s
+		end
+	end
 end
