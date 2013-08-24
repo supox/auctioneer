@@ -17,7 +17,7 @@
 					%td
 						- case method
 							- when :withraw
-								= (bid.withraw? ? t(:yes) : t(:no))
+								= bid.withraw?.to_s(:Word)
 							- when :auction
 								= bid.auction.item
 							- when :user

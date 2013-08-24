@@ -3,7 +3,7 @@
 - if @auction.date_closed
 	- date_closed_row = l(@auction.date_closed) + " - " + distance_of_time_in_words_to_now_with_future(@auction.date_closed)
 -	item_row = @auction.item.to_s
-- opened_row = (@auction.open? ? t(:yes) : t(:no))
+- opened_row = @auction.open?.to_s(:Word)
 - winning_bid = @auction.winning_bid
 -#
 
@@ -21,7 +21,7 @@
 	%li= Auction.human_attribute_name(:opened) + " - " + opened_row
 	-if winning_bid
 		%li.winning_bid
-			= link_to Auction.human_attribute_name(:winning_bid), auction_bid_path([@auction, winning_bid])
+			= link_to Auction.human_attribute_name(:winning_bid), auction_bid_path(@auction, winning_bid)
 			\-
 			= winning_bid.value
 - if @auction.bids.any?

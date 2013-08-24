@@ -292,8 +292,8 @@ he:
   click_the_link_to_reset_password: לחץ על הלינק על מנת לאפס את הסיסמא
   password_has_been_reset_successfully: הסיסמא אופסה בהצלחה
   listing_auctions: "מכירות פומביות"
-  yes: "כן"
-  no: "לא"
+  yep: "כן"
+  nope: "לא"
   time_experation_past: "לפני %{date}"
   time_experation_future: "בעוד %{date}"
   auction_closed: "המכירה נסגרה"

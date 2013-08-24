@@ -16,9 +16,9 @@
 				-methods.each do |method|
 					- case method
 						- when :opened
-							%td= (auction.open? ? t(:yes):t(:no))
+							%td= auction.open?.to_s(:Word)
 						- when :date_opened, :date_closed
-							%td= l auction[method]
+							%td= (l auction[method]) if auction[method] 
 						- when :item
 							%td= auction.item
 						- else

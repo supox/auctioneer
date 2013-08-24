@@ -11,6 +11,7 @@ class AuctionBiddingAndClosingTest < ActionDispatch::IntegrationTest
   	# make sure that there is not currently winning bid:
   	visit auction_path(@auction)
 		refute page.has_selector?('li.winning_bid')  	
+		# verify that the bid button is exists
 		page.assert_selector('div', text:I18n.t(:new_bid))
 
   	
@@ -31,9 +32,10 @@ class AuctionBiddingAndClosingTest < ActionDispatch::IntegrationTest
 		# visit auction after closing
 		visit auction_path(@auction)
 		page.assert_selector('li.winning_bid', text: Regexp.new(value.to_s))
+		# make sure that there is no "new_bid" button
 		page.assert_no_selector('div', text:I18n.t(:new_bid))
 
-		# post higher bid - show that fails.
+		# post higher bid - show that fails due to close auction.
 		make_a_bid(value+30, value)
 		page.assert_selector('div#alert_box', text: I18n.t(:auction_closed))
   end
