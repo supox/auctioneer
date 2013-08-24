@@ -1,22 +1,37 @@
-= provide(:title, @auction.item.description)
-%h1= @auction.item.description
+-# Setup
+- date_opened_row = l(@auction.date_opened) + " - " + distance_of_time_in_words_to_now_with_future(@auction.date_opened)
+- if @auction.date_closed
+	- date_closed_row = l(@auction.date_closed) + " - " + distance_of_time_in_words_to_now_with_future(@auction.date_closed)
+-	item_row = @auction.item.to_s
+- opened_row = (@auction.open? ? t(:yes) : t(:no))
+- winning_bid = @auction.winning_bid
+-#
 
+= provide(:title, @auction.item)
+%h1= @auction.item
 
 = show_menu t(:edit),
   link_to(t(:edit), edit_auction_path(@auction))
-
-- table =	{	date_opened: l(@auction.date_opened) + " - " + distance_of_time_in_words_to_now_with_future(@auction.date_opened),
-	date_closed:l(@auction.date_closed) + " - " + distance_of_time_in_words_to_now_with_future(@auction.date_closed),
-	item:@auction.item.to_s,
-	opened: (@auction.open? ? t(:yes) : t(:no))}
+	
 %ul.auction
-	-table.each do |key,val|
-		%li
-			= Auction.human_attribute_name(key) + " - "
-			= val
+	%li= Auction.human_attribute_name(:date_opened) + " - " + date_opened_row
+	-if date_closed_row
+		%li= Auction.human_attribute_name(:date_closed) + " - " + date_closed_row
+	%li= Auction.human_attribute_name(:item) + " - " + item_row
+	%li= Auction.human_attribute_name(:opened) + " - " + opened_row
+	-if winning_bid
+		%li.winning_bid
+			= link_to Auction.human_attribute_name(:winning_bid), auction_bid_path([@auction, winning_bid])
+			\-
+			= winning_bid.value
+- if @auction.bids.any?
+	%h3= t(:bids)
+	%ul.bids
+		= render partial: 'shared/bid', collection: @auction.bids
 
-%div
-	= link_to t(:bid), new_auction_bid_path(@auction), :class=>"btn btn-primary"
+- if @auction.open?
+	%div
+		= link_to t(:new_bid), new_auction_bid_path(@auction), :class=>"btn btn-primary"
 
 - if current_user.admin?
 	= link_to t(:delete), @auction, method: :delete, data: { confirm: t(:you_sure?) }

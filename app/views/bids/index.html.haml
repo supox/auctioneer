@@ -19,7 +19,7 @@
 							- when :withraw
 								= (bid.withraw? ? t(:yes) : t(:no))
 							- when :auction
-								= bid.auction.item.description
+								= bid.auction.item
 							- when :user
 								= bid.user.name
 							- else

@@ -20,7 +20,7 @@
 						- when :date_opened, :date_closed
 							%td= l auction[method]
 						- when :item
-							%td= auction.item.description
+							%td= auction.item
 						- else
 							%td= auction[method]
 				- if @user.admin?

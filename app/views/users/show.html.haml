@@ -12,7 +12,7 @@
 - if @user.bids.any?
   %h3= t(:bids)
   %ul.bids
-    = render partial: 'shared/bids', collection: @user.bids
+    = render partial: 'shared/bid', collection: @user.bids
 
 - if current_user.admin? && !current_user?(@user)
   = link_to t(:delete), @user, method: :delete, data: { confirm: t(:you_sure?) }

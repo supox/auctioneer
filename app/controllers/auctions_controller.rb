@@ -29,6 +29,7 @@ class AuctionsController < ApplicationController
   def new
     @auction = Auction.new
     @auction.build_item
+    @auction.date_opened = Time.now
 
     respond_to do |format|
       format.html # new.html.erb

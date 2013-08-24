@@ -1,5 +1,5 @@
-= provide(:title, @auction.item.description)
-%h1= @auction.item.description
+= provide(:title, @auction.item)
+%h1= @auction.item
 
 
 = show_menu t(:edit),
@@ -8,7 +8,7 @@
 %ul.bid
 	%li
 		= Auction.human_attribute_name(:item) + " - "
-		= link_to(@auction.item.description, @auction)
+		= link_to(@auction.item, @auction)
 	%li= Bid.human_attribute_name(:offer_date) + " - " + @bid.offer_date.to_s
 	%li= Bid.human_attribute_name(:value) + " - " + @bid.value.to_s
 	%li

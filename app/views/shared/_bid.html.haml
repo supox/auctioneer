@@ -1,5 +1,5 @@
 %li{ :id => bid.id }
   %span.content
-    = link_to t(:bid), bid
+    = link_to Bid.model_name.human, auction_bid_path([bid.auction, bid])
     \-
     = bid.value

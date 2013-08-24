@@ -1,33 +1,8 @@
-$LOAD_PATH << "test"
-
 require 'rubygems'
-require 'spork'
-#uncomment the following line to use spork with the debugger
-#require 'spork/ext/ruby-debug'
 
-Spork.prefork do
-	# Loading more in this block will cause your tests to run faster. However,
-	# if you change any configuration or code from libraries loaded here, you'll
-	# need to restart spork for it take effect.
-  
-	# Loading more in this block will cause your tests to run faster. However, 
-	# if you change any configuration or code from libraries loaded here, you'll
-	# need to restart spork for it take effect.
-	# This file is copied to spec/ when you run 'rails generate rspec:install'
-	ENV["RAILS_ENV"] ||= "test"
-	require File.expand_path('../../config/environment', __FILE__)
-	require 'rails/test_help'
-end
-
-Spork.each_run do
-  # This code will be run each time you run your specs.
-	Dir["#{Rails.root}/app/controllers//*.rb"].each do |controller|
-		load controller
-	end
-	Dir["#{Rails.root}/app/models//*.rb"].each do |model|
-		load model
-	end
-end
+ENV["RAILS_ENV"] ||= "test"
+require File.expand_path('../../config/environment', __FILE__)
+require 'rails/test_help'
 
 # --- Instructions ---
 # Sort the contents of this file into a Spork.prefork and a Spork.each_run
@@ -68,9 +43,11 @@ class ActiveSupport::TestCase
   # Add more helper methods to be used by all tests here...
 end
 
+require File.dirname(__FILE__) + 'integration/intergration_tests_helper.rb'
 require 'capybara/rails'
 class ActionDispatch::IntegrationTest
   # Make the Capybara DSL available in all integration tests
   include Capybara::DSL
+  include IntegrationTestsHelper
 end
 

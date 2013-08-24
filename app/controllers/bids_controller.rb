@@ -40,17 +40,21 @@ class BidsController < ApplicationController
   # POST /bids.json
   def create
   	p = (params[:bid] || {}).merge({user:current_user})
-    @bid = @auction.bid(p)
+  	begin
+		  @bid = @auction.bid(p)
 
-    respond_to do |format|
-      if @bid.save
-        format.html { redirect_to [@auction, @bid], notice: 'Bid was successfully created.' }
-        format.json { render json: [@auction, @bid], status: :created, location: @bid }
-      else
-        format.html { render action: "new" }
-        format.json { render json: @bid.errors, status: :unprocessable_entity }
-      end
-    end
+		  respond_to do |format|
+		    if @bid.save
+		      format.html { redirect_to @auction, notice: t(:bid_created) }
+		      format.json { render json: @auction, status: :created, location: @bid }
+		    else
+		      format.html { render action: "new" }
+		      format.json { render json: @bid.errors, status: :unprocessable_entity }
+		    end
+		  end
+	  rescue Exception => e
+	  	redirect_to @auction, notice: t(:auction_closed) if e.message == 'Auction Closed'
+	  end
   end
 
   # PUT /bids/1
@@ -58,7 +62,7 @@ class BidsController < ApplicationController
   def update
     respond_to do |format|
       if @bid.update_attributes(params[:bid])
-        format.html { redirect_to [@auction, @bid], notice: 'Bid was successfully updated.' }
+        format.html { redirect_to @auction, notice: 'Bid was successfully updated.' }
         format.json { head :no_content }
       else
         format.html { render action: "edit" }

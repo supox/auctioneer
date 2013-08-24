@@ -1,6 +1,6 @@
 = f.semantic_errors :state
-= f.input :date_opened
-= f.input :date_closed
+= f.input :date_opened, :as => :string, :input_html => { :value => I18n.l(f.object.date_opened) }
+= f.input :date_closed, :as => :string, :input_html => { :value => ( f.object.date_closed ? I18n.l(f.object.date_closed) : "") }
 = f.semantic_fields_for :item do |builder|
 	= builder.input :description
 = f.actions do

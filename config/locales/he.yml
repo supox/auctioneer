@@ -226,6 +226,7 @@ he:
         date_opened: "תאריך פתיחה"
         opened: פעיל
         item: תיאור
+        winning_bid: "הצעה זוכה"
     errors:
       <<: *errors
   css:
@@ -295,4 +296,5 @@ he:
   no: "לא"
   time_experation_past: "לפני %{date}"
   time_experation_future: "בעוד %{date}"
-
+  auction_closed: "המכירה נסגרה"
+  bid_created: "ההצעה התקבלה"

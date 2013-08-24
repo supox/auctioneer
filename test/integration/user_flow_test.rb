@@ -1,11 +1,10 @@
 require 'test_helper'
 
 class UserFlowTest < ActionDispatch::IntegrationTest
-
   test "should get new user" do
   	get new_user_path
     assert_response :success  	   
-  	assert_match "user_name", response.body  	
+  	assert_match "user_name", response.body
  	end
  	
  	test "should create user" do
@@ -81,13 +80,6 @@ class UserFlowTest < ActionDispatch::IntegrationTest
 		click_on 'session_submit_action'
 		
 		assert_equal users_path, current_path
-	end
-	
-	def sign_in user		
-  	visit signin_path
-  	fill_in("session_email", with: user.email)
-  	fill_in("session_password", with: user.password)
-		click_on 'session_submit_action'
 	end
 	
  	def fields

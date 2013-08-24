@@ -29,7 +29,7 @@ class BidsControllerTest < ActionController::TestCase
     end
 
 		assert_equal(assigns(:bid).user, @user)
-    assert_redirected_to auction_bid_path(@auction, assigns(:bid))
+    assert_redirected_to auction_path(@auction)
   end
 
 	test "should show bid" do
@@ -44,7 +44,7 @@ class BidsControllerTest < ActionController::TestCase
 
   test "should update bid" do
     put :update, {auction_id:@auction.id, id: @bid}, bid: { offer_date: @bid.offer_date, value: @bid.value, withraw: @bid.withraw }
-    assert_redirected_to auction_bid_path(@auction, assigns(:bid))
+    assert_redirected_to auction_path(@auction)
   end
 
   test "should destroy bid" do
