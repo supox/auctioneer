@@ -34,7 +34,6 @@ class AuctionsControllerTest < ActionController::TestCase
     end
   end
 
-
   test "should show auction" do
     get :show, id: @auction
     assert_response :success
@@ -84,17 +83,17 @@ class AuctionsControllerTest < ActionController::TestCase
   	assert_redirected_to signin_path
     put(:update, {id:@auction.id, auction:auction_params})
   	assert_redirected_to signin_path
-   end
-  
-  	def auction_params
-			{ date_closed: @auction.date_closed, date_opened: @auction.date_opened }
-  	end
-  	
-  	def set_as_admin
-		 	current_user.admin!
-			current_user.save!
-			sign_in current_user  	
-  	end
+	end
+	  
+	def auction_params
+		{ date_closed: @auction.date_closed, date_opened: @auction.date_opened }
+	end
+
+	def set_as_admin
+	 	current_user.admin!
+		current_user.save!
+		sign_in current_user  	
+	end
   
 end
 

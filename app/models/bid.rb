@@ -9,6 +9,10 @@ class Bid < ActiveRecord::Base
 	
 	after_initialize :set_defaults
 	
+	def winning?
+		auction.winning_bid == self
+	end
+	
 	protected
 	def set_defaults
 		self.offer_date ||= DateTime.now

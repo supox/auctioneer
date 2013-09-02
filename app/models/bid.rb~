@@ -11,10 +11,6 @@ class Bid < ActiveRecord::Base
 	
 	protected
 	def set_defaults
-		puts self.offer_date.inspect
-		#puts params.inspect if params[:offer_date]
-		
-
 		self.offer_date ||= DateTime.now
 		self.withraw = false unless self.withraw
 	end

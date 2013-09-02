@@ -18,12 +18,14 @@
 						- case method
 							- when :withraw
 								= bid.withraw?.to_s(:Word)
-							- when :auction
-								= bid.auction.item
+							- when :offer_date
+								=	l(bid.offer_date) if bid.offer_date
 							- when :user
-								= bid.user.name
+								= link_to bid.user, bid.user
+							- when :auction
+								= link_to bid.auction, bid.auction
 							- else
-								= bid[method]
+								= bid.public_send(method).to_s
 								
 				%td= link_to t(:show), auction_bid_path(@auction, bid)
 

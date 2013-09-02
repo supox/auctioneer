@@ -298,3 +298,6 @@ he:
   time_experation_future: "בעוד %{date}"
   auction_closed: "המכירה נסגרה"
   bid_created: "ההצעה התקבלה"
+  add_to_mailing_list: 'קבל עדכוני דוא"ל'
+  remove_from_mailing_list: "הסר מרשימת התפוצה"
+

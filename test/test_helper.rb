@@ -45,6 +45,7 @@ end
 
 require File.dirname(__FILE__) + '/integration/intergration_tests_helper.rb'
 require 'capybara/rails'
+
 class ActionDispatch::IntegrationTest
   # Make the Capybara DSL available in all integration tests
   include Capybara::DSL

@@ -7,11 +7,12 @@
 - winning_bid = @auction.winning_bid
 -#
 
-= provide(:title, @auction.item)
-%h1= @auction.item
+= provide(:title, @auction)
+%h1= @auction
 
-= show_menu t(:edit),
-  link_to(t(:edit), edit_auction_path(@auction))
+- if current_user.admin?
+	= show_menu t(:edit),
+	  link_to(t(:edit), edit_auction_path(@auction))
 	
 %ul.auction
 	%li= Auction.human_attribute_name(:date_opened) + " - " + date_opened_row
@@ -32,6 +33,7 @@
 - if @auction.open?
 	%div
 		= link_to t(:new_bid), new_auction_bid_path(@auction), :class=>"btn btn-primary"
+	= render 'listen_form'
 
 - if current_user.admin?
 	= link_to t(:delete), @auction, method: :delete, data: { confirm: t(:you_sure?) }

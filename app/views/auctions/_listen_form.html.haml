@@ -1,0 +1,6 @@
+%div#listen_form
+	-if @add_to_mailing_list
+		= render 'mailing_list/remove_from_mail_list'
+	-else
+		= render 'mailing_list/add_to_mail_list'
+

@@ -1,0 +1,3 @@
+= form_for(@auction.auction_user_relationships.build, url: auction_mailing_list_index_path(@auction), remote: true) do |f|
+	=f.submit t(:add_to_mailing_list), class: "btn"
+

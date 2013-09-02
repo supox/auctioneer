@@ -3,8 +3,6 @@ class AuctionsController < ApplicationController
 	before_filter :signed_in_user
   before_filter :admin_user, only: [:create, :destroy]
 
-  # GET /auctions
-  # GET /auctions.json
   def index
   	@user = current_user
     @auctions = Auction.all
@@ -15,17 +13,15 @@ class AuctionsController < ApplicationController
     end
   end
 
-  # GET /auctions/1
-  # GET /auctions/1.json
   def show
+	  @user = current_user
+  	@add_to_mailing_list = @auction.listeners.include?(@user)
     respond_to do |format|
-      format.html # show.html.erb
+      format.html
       format.json { render json: @auction }
     end
   end
 
-  # GET /auctions/new
-  # GET /auctions/new.json
   def new
     @auction = Auction.new
     @auction.build_item
@@ -37,12 +33,9 @@ class AuctionsController < ApplicationController
     end
   end
 
-  # GET /auctions/1/edit
   def edit
   end
 
-  # POST /auctions
-  # POST /auctions.json
   def create
     @auction = Auction.new(params[:auction])
 
@@ -57,8 +50,6 @@ class AuctionsController < ApplicationController
     end
   end
 
-  # PUT /auctions/1
-  # PUT /auctions/1.json
   def update
     respond_to do |format|
       if @auction.update_attributes(params[:auction])
@@ -71,8 +62,6 @@ class AuctionsController < ApplicationController
     end
   end
 
-  # DELETE /auctions/1
-  # DELETE /auctions/1.json
   def destroy
     @auction.destroy
 

@@ -1,0 +1,5 @@
+- mail_list = @auction.auction_user_relationships.find_by_listener_id(@user.id)
+= form_for(mail_list, url:auction_mailing_list_path(@auction,mail_list),	html: { method: :delete }, remote: true) do |f|
+  =f.submit t(:remove_from_mailing_list), class: "btn"
+  
+

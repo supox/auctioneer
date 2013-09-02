@@ -3,6 +3,8 @@ class Auction < ActiveRecord::Base
 	
 	has_one :item, dependent: :destroy
 	has_many :bids, dependent: :destroy
+	has_many :auction_user_relationships, dependent: :destroy
+	has_many :listeners, through: :auction_user_relationships
 	
 	validates :date_opened, presence: true
 	validates :item, presence: true
@@ -13,7 +15,13 @@ class Auction < ActiveRecord::Base
 	
 	def bid(params)
 		raise 'Auction Closed' unless open?
-		self.bids.build(params)
+		b = self.bids.build(params)
+	
+		self.listeners.each do |listener|
+    	AuctionMailer.email_new_bid(listener, b).deliver
+    end
+    
+    b
 	end
 	
 	def winning_bid
@@ -27,6 +35,11 @@ class Auction < ActiveRecord::Base
 	def close!
 		self.date_closed= DateTime.now
 	end
+	
+	def to_s
+		self.item.to_s
+	end
+	
 	protected
 	def times_validation
 		errors.add(:end_time, I18n.t("errors.messages.greater_than", count: I18n.t(:date_closed))) unless date_closed.nil? || date_closed >= date_opened

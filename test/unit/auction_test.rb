@@ -7,7 +7,7 @@ class AuctionTest < ActiveSupport::TestCase
 	end
 
 	test "should response" do
-		methods =[:date_closed, :date_opened, :item, :bids, :winning_bid, :open?, :close!]
+		methods =[:date_closed, :date_opened, :item, :bids, :winning_bid, :open?, :close!, :listeners]
 		methods.each do |meth|
 			assert_respond_to @auction, meth
 		end
@@ -18,10 +18,10 @@ class AuctionTest < ActiveSupport::TestCase
 	end
 
 	test "times_diff" do
-		@auction.date_opened= DateTime.now
-		@auction.date_closed= DateTime.yesterday
+		@auction.date_opened= DateTime.now.to_datetime
+		@auction.date_closed= DateTime.yesterday.to_datetime
 		refute @auction.valid?
-		@auction.date_closed= DateTime.tomorrow
+		@auction.date_closed= DateTime.tomorrow.to_datetime
 		assert @auction.valid?
 	end
 	
@@ -43,12 +43,12 @@ class AuctionTest < ActiveSupport::TestCase
 	test "open?" do
 		@auction.date_closed = nil
 		assert @auction.open?
-		@auction.date_closed = DateTime.tomorrow
+		@auction.date_closed = DateTime.tomorrow.to_datetime
 		assert @auction.open?
-		@auction.date_closed = DateTime.yesterday
+		@auction.date_closed = DateTime.yesterday.to_datetime
 		refute @auction.open?
-		@auction.date_opened = DateTime.tomorrow
-		@auction.date_closed = DateTime.tomorrow
+		@auction.date_opened = DateTime.tomorrow.to_datetime
+		@auction.date_closed = DateTime.tomorrow.to_datetime
 		refute @auction.open?
 	end
 	
@@ -107,34 +107,34 @@ class AuctionTest < ActiveSupport::TestCase
 
 	test "automatic date assignment" do
 		# custom date
-		offer_date = DateTime.new(2010)
+		offer_date = DateTime.new(2010).to_datetime
 		create_bid(12, offer_date:offer_date)
 		@auction.save!
 		assert_equal(offer_date, @auction.bids.first.offer_date)
 	
 		# automatic date
 		@auction.bids.clear
-		start_time = DateTime.now
+		start_time = DateTime.now.to_datetime
 		create_bid(13)
-		date_range = (start_time..DateTime.now)
+		date_range = (start_time..DateTime.now.to_datetime)
 		assert(date_range.cover?(@auction.bids.first.offer_date), "automatic date assign failed")
 	end
 
 	def test_open
-		@auction.date_opened = DateTime.yesterday
+		@auction.date_opened = DateTime.yesterday.to_datetime
 		@auction.date_closed = nil
 		assert @auction.open?
-		@auction.date_opened = DateTime.tomorrow
+		@auction.date_opened = DateTime.tomorrow.to_datetime
 		@auction.date_closed = nil
 		refute @auction.open?
-		@auction.date_opened = DateTime.yesterday
-		@auction.date_closed = DateTime.tomorrow
+		@auction.date_opened = DateTime.yesterday.to_datetime
+		@auction.date_closed = DateTime.tomorrow.to_datetime
 		assert @auction.open?
 		@auction.date_opened = 2.days.ago
-		@auction.date_closed = DateTime.yesterday
+		@auction.date_closed = DateTime.yesterday.to_datetime
 		refute @auction.open?
 		
-		@auction.date_opened = DateTime.yesterday
+		@auction.date_opened = DateTime.yesterday.to_datetime
 		@auction.date_closed = nil
 		@auction.close!
 		refute @auction.open?
@@ -149,5 +149,24 @@ class AuctionTest < ActiveSupport::TestCase
 		@auction.item = Item.new(description:"my item.")
 		assert @auction.valid?
 	end
+	
+	test "it should have mail notification list" do
+		@auction.listeners<< @user
+		@auction.save!
+		assert_equal @user, @auction.listeners.first
+	end
+	
+	test "it should send mail on bid" do
+		@auction.listeners<< @user
+		@auction.save!
+
+		create_bid(bid_value = 12)
+		@auction.save!
+		
+		mail = ActionMailer::Base.deliveries.last
+		assert_equal @user.email, mail.to.first
+		assert_match(Regexp.new(bid_value.to_s), mail.body.encoded)
+	end
+	
 end
 

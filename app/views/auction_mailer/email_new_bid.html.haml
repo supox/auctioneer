@@ -1,0 +1,19 @@
+!!! 5
+%html
+	%head
+		%meta{ :content=> "text/html; charset=UTF-8", "http-equiv"=>"Content-Type" }
+	%body
+		%h3= t(:new_bid_notification)    
+		%ul.bid
+			%li
+				= Auction.human_attribute_name(:item) + " - "
+				= link_to(@auction, @auction)
+			%li= Bid.human_attribute_name(:offer_date) + " - " + l(@bid.offer_date)
+			%li= Bid.human_attribute_name(:value) + " - " + @bid.value.to_s
+			%li
+				= Bid.human_attribute_name(:withraw) + " - "
+				=@bid.withraw?.to_s(:Word)
+			%li
+				= User.model_name.human + " - "
+				=link_to(@bid.user, @bid.user)
+

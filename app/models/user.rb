@@ -3,6 +3,8 @@ class User < ActiveRecord::Base
 	has_secure_password
 	
 	has_many :bids, dependent: :destroy
+	has_many :auction_user_relationships, foreign_key: :listener_id, dependent: :destroy	
+	has_many :listening_auctions, through: :auction_user_relationships, class_name: :Auction, source: :listener
 
 	VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
 	validates :email, presence:   true,
@@ -54,6 +56,10 @@ class User < ActiveRecord::Base
 	
 	def admin!
 		toggle!(:admin) unless admin?
+	end
+	
+	def to_s
+		self.name
 	end
 	
 	private

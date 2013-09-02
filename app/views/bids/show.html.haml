@@ -2,21 +2,22 @@
 %h1= @auction.item
 
 
-= show_menu t(:edit),
-  link_to(t(:edit), edit_auction_bid_path(@auction, @bid))
+- if current_user.admin?
+	= show_menu t(:edit),
+	  link_to(t(:edit), edit_auction_bid_path(@auction, @bid))
 
 %ul.bid
 	%li
 		= Auction.human_attribute_name(:item) + " - "
-		= link_to(@auction.item, @auction)
-	%li= Bid.human_attribute_name(:offer_date) + " - " + @bid.offer_date.to_s
+		= link_to(@auction, @auction)
+	%li= Bid.human_attribute_name(:offer_date) + " - " + l(@bid.offer_date)
 	%li= Bid.human_attribute_name(:value) + " - " + @bid.value.to_s
 	%li
 		= Bid.human_attribute_name(:withraw) + " - "
 		=@bid.withraw?.to_s(:Word)
 	%li
 		= User.model_name.human + " - "
-		=link_to(@bid.user.name, @bid.user)
+		=link_to(@bid.user, @bid.user)
 
 - if current_user.admin?
 	= link_to t(:edit), edit_auction_bid_path(@auction, @bid)

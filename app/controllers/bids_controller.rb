@@ -39,10 +39,9 @@ class BidsController < ApplicationController
   # POST /bids
   # POST /bids.json
   def create
-  	p = (params[:bid] || {}).merge({user:current_user})
+  	bid_p = (params[:bid] || {}).merge({user:current_user})
   	begin
-		  @bid = @auction.bid(p)
-
+		  @bid = @auction.bid(bid_p)
 		  respond_to do |format|
 		    if @bid.save
 		      format.html { redirect_to @auction, notice: t(:bid_created) }

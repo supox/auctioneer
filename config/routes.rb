@@ -1,6 +1,7 @@
 Auctioneer::Application.routes.draw do
 
   resources :auctions do
+		resources :mailing_list, only: [:create, :destroy]		
 	  resources :bids
   end
 

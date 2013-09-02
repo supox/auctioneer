@@ -11,7 +11,18 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130810075559) do
+ActiveRecord::Schema.define(:version => 20130828204405) do
+
+  create_table "auction_user_relationships", :force => true do |t|
+    t.integer  "auction_id"
+    t.integer  "listener_id"
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
+  end
+
+  add_index "auction_user_relationships", ["auction_id", "listener_id"], :name => "index_auction_user_relationships_on_auction_id_and_listener_id", :unique => true
+  add_index "auction_user_relationships", ["auction_id"], :name => "index_auction_user_relationships_on_auction_id"
+  add_index "auction_user_relationships", ["listener_id"], :name => "index_auction_user_relationships_on_listener_id"
 
   create_table "auctions", :force => true do |t|
     t.datetime "date_opened"
